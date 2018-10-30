@@ -27,28 +27,47 @@ public class Addrnew {
 
   @Test
   public void testAddrnew() throws Exception {
-    wd.findElement(By.linkText("add new")).click();
+    goToAddNewPage();
+    fillAddrNewData(new ContactData("tester", "test", "96587321", "test@tes.com"));
+    submitAddrNew();
+    goToHomePage();
+  }
+
+  private void goToHomePage() {
+    wd.findElement(By.linkText("home page")).click();
+  }
+
+  private void submitAddrNew() {
+    wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
+  }
+
+  private void fillAddrNewData(ContactData contactData) {
     wd.findElement(By.name("firstname")).click();
     wd.findElement(By.name("firstname")).clear();
-    wd.findElement(By.name("firstname")).sendKeys("tester");
+    wd.findElement(By.name("firstname")).sendKeys(contactData.getFirstname());
     wd.findElement(By.name("lastname")).click();
     wd.findElement(By.name("lastname")).clear();
-    wd.findElement(By.name("lastname")).sendKeys("test");
+    wd.findElement(By.name("lastname")).sendKeys(contactData.getLastname());
     wd.findElement(By.name("mobile")).click();
     wd.findElement(By.name("mobile")).clear();
-    wd.findElement(By.name("mobile")).sendKeys("96587321");
+    wd.findElement(By.name("mobile")).sendKeys(contactData.getMobile());
     wd.findElement(By.name("email")).click();
     wd.findElement(By.name("email")).clear();
-    wd.findElement(By.name("email")).sendKeys("test@tes.com");
-    wd.findElement(By.xpath("(//input[@name='submit'])[2]")).click();
-    wd.findElement(By.linkText("home page")).click();
+    wd.findElement(By.name("email")).sendKeys(contactData.getEmail());
+  }
 
+  private void goToAddNewPage() {
+    wd.findElement(By.linkText("add new")).click();
   }
 
   @AfterMethod(alwaysRun = true)
   public void tearDown() throws Exception {
-    wd.findElement(By.linkText("Logout")).click();
+    logout();
     wd.quit();
+  }
+
+  private void logout() {
+    wd.findElement(By.linkText("Logout")).click();
   }
 
   private boolean isElementPresent(By by) {
