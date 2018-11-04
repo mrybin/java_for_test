@@ -35,12 +35,13 @@ public class DeleteContact {
   public String closeAlertAndGetItsText() {
     try {
       Alert alert = wd.switchTo().alert();
+      String alertText = alert.getText();
       if (acceptNextAlert) {
         alert.accept();
       } else {
         alert.dismiss();
       }
-      return alert.getText();
+      return alertText;
     } finally {
       acceptNextAlert = true;
     }
