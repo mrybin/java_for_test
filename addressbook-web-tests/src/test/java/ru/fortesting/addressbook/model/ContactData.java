@@ -1,4 +1,4 @@
-package ru.fortesting.addressbook;
+package ru.fortesting.addressbook.model;
 
 public class ContactData {
     private final String firstname;

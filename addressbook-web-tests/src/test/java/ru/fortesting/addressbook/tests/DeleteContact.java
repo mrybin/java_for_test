@@ -1,4 +1,4 @@
-package ru.fortesting.addressbook;
+package ru.fortesting.addressbook.tests;
 
 import org.testng.annotations.Test;
 
@@ -6,10 +6,10 @@ public class DeleteContact extends TestBase {
 
   @Test
   public void testDeleteContact() throws Exception {
-     goToHome();
-     selectData();
-     deleteContact();
-     goToHome();
+     app.goToHome();
+     app.selectData();
+     app.deleteContact();
+     app.goToHome();
   }
 
 }

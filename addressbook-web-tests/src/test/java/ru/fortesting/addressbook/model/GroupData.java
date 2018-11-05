@@ -1,4 +1,4 @@
-package ru.fortesting.addressbook;
+package ru.fortesting.addressbook.model;
 
 public class GroupData {
     private final String name;
