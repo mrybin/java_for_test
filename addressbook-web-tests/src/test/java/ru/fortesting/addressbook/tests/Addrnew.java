@@ -7,10 +7,10 @@ public class Addrnew  extends  TestBase{
 
   @Test
   public void testAddrnew() throws Exception {
-    app.goToAddNewPage();
-    app.fillAddrNewData(new ContactData("tester", "test", "96587321", "test@tes.com"));
-    app.submitAddrNew();
-    app.goToHomePage();
+    app.getNavigationHelper().goToAddNewPage();
+    app.getContactHelper().fillAddrNewData(new ContactData("tester", "test", "96587321", "test@tes.com"));
+    app.getContactHelper().submitAddrNew();
+    app.getNavigationHelper().goToHomePage();
   }
 
 }
