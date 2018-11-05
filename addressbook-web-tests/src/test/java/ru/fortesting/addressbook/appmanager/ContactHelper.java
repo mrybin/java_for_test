@@ -28,10 +28,11 @@ public class ContactHelper extends HelperBase{
 
     public void deleteContact() {
       click(By.xpath("//input[@value='Delete']"));
-      assertTrue(closeAlertAndGetItsText().matches("^Delete 1 addresses[\\s\\S]$"));
+      wd.switchTo().alert().accept();
+      //assertTrue(closeAlertAndGetItsText().matches("^Delete 1 addresses[\\s\\S]$"));
     }
 
-    public String closeAlertAndGetItsText() {
+ /*   public String closeAlertAndGetItsText() {
       try {
         Alert alert = wd.switchTo().alert();
         String alertText = alert.getText();
@@ -44,5 +45,13 @@ public class ContactHelper extends HelperBase{
       } finally {
         acceptNextAlert = true;
       }
+    }
+*/
+    public void initContactModification() {
+        click(By.xpath("//img[@alt='Edit']"));
+    }
+
+    public void submitModification() {
+        click(By.name("update"));
     }
 }
