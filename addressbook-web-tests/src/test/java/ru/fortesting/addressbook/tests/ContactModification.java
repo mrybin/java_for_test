@@ -7,10 +7,14 @@ public class ContactModification extends TestBase{
 
     @Test
     public void testContactModification() {
-        app.getNavigationHelper().goToHome();
+        app.getContactHelper().goToHome();
+        if (! app.getContactHelper().isThereAContact()){
+            app.getNavigationHelper().goToAddNewPage();
+            app.getContactHelper().createContact(new ContactData("tester", "test", "96587321", "test@tes.com"));
+        }
         app.getContactHelper().initContactModification();
         app.getContactHelper().fillAddrNewData(new ContactData("test", "tes2", "99987321", "test2@tes.com"));
         app.getContactHelper().submitModification();
-        app.getNavigationHelper().goToHome();
+        app.getContactHelper().goToHome();
     }
 }
