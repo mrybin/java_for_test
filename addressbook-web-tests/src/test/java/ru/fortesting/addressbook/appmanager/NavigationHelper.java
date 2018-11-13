@@ -14,9 +14,8 @@ public class NavigationHelper extends HelperBase{
       click(By.linkText("groups"));
     }
 
-    public void selectData() {
-      click(By.name("selected[]"));
-    }
+
+
 
     public void goToAddNewPage() {
       click(By.linkText("add new"));
