@@ -12,9 +12,18 @@ public class GroupCreationTests extends TestBase {
   public void testGroupCreation() throws Exception {
       app.getNavigationHelper().gotoGroupPage();
       List<GroupData> before = app.getGroupHelper().getGroupList();
-      app.getGroupHelper().createGroup(new GroupData("qwe", "asd", "zxc"));
+      GroupData group = new GroupData("qwe", "asd", "zxc");
+      app.getGroupHelper().createGroup(group);
       List<GroupData> after = app.getGroupHelper().getGroupList();
       Assert.assertEquals(after.size(), before.size() + 1);
+
+      int max=0;
+      for (GroupData g: after) {
+          if (g.getId()>max)
+              max = g.getId();
+      }
+      group.setId(max);
+      before.add(group);
   }
 
 }
