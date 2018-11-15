@@ -1,7 +1,10 @@
 package ru.fortesting.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.fortesting.addressbook.model.ContactData;
+
+import java.util.List;
 
 public class DeleteContact extends TestBase {
 
@@ -12,9 +15,14 @@ public class DeleteContact extends TestBase {
           app.getNavigationHelper().goToAddNewPage();
           app.getContactHelper().createContact(new ContactData("tester", "test", "96587321", "test@tes.com"));
       }
-   //  app.getGroupHelper().selectGroup();
+      List<ContactData> before = app.getContactHelper().getContactList();
+     app.getContactHelper().selectContact(before.size() - 1);
      app.getContactHelper().deleteContact();
      app.getContactHelper().goToHome();
+     List<ContactData> after = app.getContactHelper().getContactList();
+      Assert.assertEquals(after.size(), before.size() - 1);
+      before.remove(before.size() - 1);
+      Assert.assertEquals(after, before);
   }
 
 }
