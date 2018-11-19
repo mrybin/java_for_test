@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Addrnew  extends  TestBase{
 
-  @Test
+  @Test (enabled = false)
   public void testAddrnew() throws Exception {
     List<ContactData> before = app.getContactHelper().getContactList();
     app.getNavigationHelper().goToAddNewPage();

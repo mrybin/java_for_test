@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ContactModification extends TestBase{
 
-    @Test
+    @Test (enabled = false)
     public void testContactModification() {
         app.getContactHelper().goToHome();
         if (! app.getContactHelper().isThereAContact()){
@@ -18,7 +18,7 @@ public class ContactModification extends TestBase{
             app.getContactHelper().createContact(new ContactData("tester1", "test23", "96587321", "test@tes.com"));
         }
         List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().initContactModification(before.size());
+        app.getContactHelper().initContactModification(before.size()- 1);
         ContactData contact = new ContactData(before.get(before.size() - 1).getId(),"test", "tes2", "99987321", "test2@tes.com");
         app.getContactHelper().fillAddrNewData(contact);
         app.getContactHelper().submitModification();
