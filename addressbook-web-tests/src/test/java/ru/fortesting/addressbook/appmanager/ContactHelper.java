@@ -47,23 +47,27 @@ public class ContactHelper extends HelperBase{
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
     }
-
+    private Contacts contactsCache=null;
     public void create(ContactData contact) {
         fillAddrNewData(contact);
         submitAddrNew();
+        contactsCache=null;
         goToHome();
     }
 
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactsCache!=null){
+            return new Contacts(contactsCache);
+        }
+        contactsCache = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath( "//table[@id='maintable']/tbody/tr[@name='entry']"));
         for (WebElement element : elements) {
             String lastname = element.findElement(By.xpath("./td[2]")).getText();
             String firstname = element.findElement(By.xpath("./td[3]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            contacts.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
+            contactsCache.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname));
         }
-        return contacts;
+        return new Contacts(contactsCache);
     }
 
 
@@ -74,6 +78,7 @@ public class ContactHelper extends HelperBase{
         initContactModification(contact.getId());
         fillAddrNewData(contact);
         submitModification();
+        contactsCache=null;
         goToHome();
     }
 
@@ -82,6 +87,7 @@ public class ContactHelper extends HelperBase{
         selectById(contact.getId());
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
+        contactsCache=null;
         goToHome();
     }
 }
