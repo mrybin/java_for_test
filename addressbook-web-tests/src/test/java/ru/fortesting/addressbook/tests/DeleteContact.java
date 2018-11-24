@@ -1,28 +1,31 @@
 package ru.fortesting.addressbook.tests;
 
-import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.fortesting.addressbook.model.ContactData;
+import ru.fortesting.addressbook.model.Contacts;
 
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class DeleteContact extends TestBase {
-
-  @Test (enabled = false)
-  public void testDeleteContact() throws Exception {
-     app.getContactHelper().goToHome();
-      if (! app.getContactHelper().isThereAContact()){
-          app.getNavigationHelper().goToAddNewPage();
-          app.getContactHelper().createContact(new ContactData("tester", "test", "96587321", "test@tes.com"));
-      }
-      List<ContactData> before = app.getContactHelper().getContactList();
-     app.getContactHelper().selectContact(before.size() - 1);
-     app.getContactHelper().deleteContact();
-     app.getContactHelper().goToHome();
-     List<ContactData> after = app.getContactHelper().getContactList();
-      Assert.assertEquals(after.size(), before.size() - 1);
-      before.remove(before.size() - 1);
-      Assert.assertEquals(after, before);
+    @BeforeMethod
+    public void ensurePrecondition(){
+        app.contact().goToHome();
+        if (app.contact().all().size() ==0){
+            app.goTo().addNewPage();
+            app.contact().create(new ContactData().withFirstname("tester1").withLastname("test23").withMobile("96587321").withEmail("test@tes.com"));
+        }
+    }
+    @Test
+    public void testDeleteContact() throws Exception {
+      Contacts before = app.contact().all();
+      ContactData deletedContact = before.iterator().next();
+      app.contact().delete(deletedContact);
+      Contacts after = app.contact().all();
+      assertEquals(after.size(), before.size() - 1);
+      assertThat(after, equalTo(before.without(deletedContact)));
   }
 
 }
