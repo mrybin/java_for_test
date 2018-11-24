@@ -16,9 +16,8 @@ public class Addrnew  extends  TestBase{
     app.goTo().addNewPage();
     ContactData contact = new ContactData().withFirstname("tester").withLastname("test").withMobile( "96587321").withEmail("test@tes.com");
     app.contact().create(contact);
+    assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.contact().all();
-    assertThat(after.size(), equalTo(before.size() + 1));
-
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((c)-> c.getId()).max().getAsInt()))));
   }
