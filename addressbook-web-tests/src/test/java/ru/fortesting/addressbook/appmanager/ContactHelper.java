@@ -63,9 +63,11 @@ public class ContactHelper extends HelperBase{
             String lastname = element.findElement(By.xpath("./td[2]")).getText();
             String firstname = element.findElement(By.xpath("./td[3]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            String address = element.findElement(By.xpath("./td[4]")).getText();
+            String allemails = element.findElement(By.xpath("./td[5]")).getText();
             String allphones = element.findElement(By.xpath("./td[6]")).getText();
             contactsCache.add(new ContactData().withId(id).withFirstname(firstname).withLastname(lastname)
-                    .withAllPhones(allphones));
+                    .withAllPhones(allphones).withAddress(address).withAllEmails(allemails));
         }
         return new Contacts(contactsCache);
     }
@@ -101,8 +103,13 @@ public class ContactHelper extends HelperBase{
         String home= wd.findElement(By.name("home")).getAttribute("value");
         String mobile= wd.findElement(By.name("mobile")).getAttribute("value");
         String work= wd.findElement(By.name("work")).getAttribute("value");
+        String address=wd.findElement(By.name("address")).getAttribute("value");
+        String email=wd.findElement(By.name("email")).getAttribute("value");
+        String email2=wd.findElement(By.name("email2")).getAttribute("value");
+        String email3=wd.findElement(By.name("email3")).getAttribute("value");
         wd.navigate().back();
         return new ContactData()
-                .withId(contact.getId()).withLastname(lastname).withFirstname(firstname).withHomePhone(home).withMobile(mobile).withWorkPhone(work);
+                .withId(contact.getId()).withLastname(lastname).withFirstname(firstname).withHomePhone(home)
+                .withMobile(mobile).withWorkPhone(work).withAddress(address).withEmail(email).withEmail2(email2).withEmail3(email3);
     }
 }
