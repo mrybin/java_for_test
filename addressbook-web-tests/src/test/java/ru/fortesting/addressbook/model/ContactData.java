@@ -1,18 +1,25 @@
 package ru.fortesting.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Objects;
 
 public class ContactData {
 
 
     private int id = 0;
+    @Expose
     private String firstname;
+    @Expose
     private String lastname;
+    @Expose
     private String mobilePhone;
+    @Expose
     private String email;
     private String homePhone;
     private String workPhone;
     private String allPhones;
+    @Expose
     private String address;
     private String email2;
     private String email3;
