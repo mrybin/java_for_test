@@ -78,7 +78,7 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withMobile(String mobile) {
+    public ContactData withMobilePhone(String mobile) {
         this.mobilePhone = mobile;
         return this;
     }

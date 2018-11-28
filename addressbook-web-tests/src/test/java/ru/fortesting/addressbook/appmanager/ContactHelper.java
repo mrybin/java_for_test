@@ -110,6 +110,6 @@ public class ContactHelper extends HelperBase{
         wd.navigate().back();
         return new ContactData()
                 .withId(contact.getId()).withLastname(lastname).withFirstname(firstname).withHomePhone(home)
-                .withMobile(mobile).withWorkPhone(work).withAddress(address).withEmail(email).withEmail2(email2).withEmail3(email3);
+                .withMobilePhone(mobile).withWorkPhone(work).withAddress(address).withEmail(email).withEmail2(email2).withEmail3(email3);
     }
 }
