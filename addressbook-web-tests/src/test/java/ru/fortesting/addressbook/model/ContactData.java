@@ -1,28 +1,46 @@
 package ru.fortesting.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.util.Objects;
-
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
 
-
+    @Id
+    @Column(name = "id")
     private int id = 0;
     @Expose
+    @Column(name = "firstname")
     private String firstname;
     @Expose
+    @Column(name = "lastname")
     private String lastname;
     @Expose
+    @Column(name = "mobile")
+    @Type(type="text")
     private String mobilePhone;
     @Expose
+    @Column(name = "email")
+    @Type(type="text")
     private String email;
+    @Transient
     private String homePhone;
+    @Transient
     private String workPhone;
+    @Transient
     private String allPhones;
     @Expose
+    @Column(name = "address")
+    @Type(type="text")
     private String address;
+    @Transient
     private String email2;
+    @Transient
     private String email3;
+    @Transient
     private String allEmails;
 
     public String getAddress() {
