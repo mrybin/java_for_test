@@ -168,7 +168,8 @@ public class ContactData {
                 Objects.equals(email, that.email) &&
                 Objects.equals(homePhone, that.homePhone) &&
                 Objects.equals(workPhone, that.workPhone) &&
-                Objects.equals(address, that.address) &&
+                Objects.equals(address, that.address);
+
     }
 
     @Override
