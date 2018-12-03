@@ -26,11 +26,9 @@ public class ContactData {
     @Column(name = "email")
     @Type(type="text")
     private String email;
-    @Column(name = "home")
-    @Type(type="text")
+    @Transient
     private String homePhone;
-    @Column(name = "work")
-    @Type(type="text")
+    @Transient
     private String workPhone;
     @Transient
     private String allPhones;
@@ -166,14 +164,12 @@ public class ContactData {
                 Objects.equals(lastname, that.lastname) &&
                 Objects.equals(mobilePhone, that.mobilePhone) &&
                 Objects.equals(email, that.email) &&
-                Objects.equals(homePhone, that.homePhone) &&
-                Objects.equals(workPhone, that.workPhone) &&
                 Objects.equals(address, that.address);
 
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstname, lastname, mobilePhone, email, homePhone, workPhone, address);
+        return Objects.hash(id, firstname, lastname, mobilePhone, email, address);
     }
 }
