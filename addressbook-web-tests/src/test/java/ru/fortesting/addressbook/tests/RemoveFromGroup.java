@@ -21,8 +21,10 @@ public class RemoveFromGroup extends TestBase{
         for (GroupData group:groups){
             if (moveContact.getGroups().contains(group)==true){
                 app.contact().removeFromGroup(moveContact,group);
+                Contacts contacts = app.db().getSimpleContact(moveContact.getId());
+                Groups afterMove=contacts.iterator().next().getGroups();
                 k=true;
-                assertThat(moveContact.getGroups(), equalTo(groupsBefore.without(group)));
+                assertThat(afterMove, equalTo(groupsBefore.without(group)));
                 break;
             }
         }
@@ -31,7 +33,9 @@ public class RemoveFromGroup extends TestBase{
             app.group().create(newgroup);
             app.contact().addToGroup(moveContact, newgroup);
             app.contact().removeFromGroup(moveContact,newgroup);
-            assertThat(moveContact.getGroups(), equalTo(groupsBefore));
+            Contacts contacts = app.db().getSimpleContact(moveContact.getId());
+            Groups afterMove=contacts.iterator().next().getGroups();
+            assertThat(afterMove, equalTo(groupsBefore));
         }
     }
 

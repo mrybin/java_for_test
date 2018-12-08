@@ -32,7 +32,9 @@ public class AddToGroup extends TestBase{
         for (GroupData group:groups){
             if (moveContact.getGroups().contains(group)==false){
                 app.contact().addToGroup(moveContact, group);
-                assertThat(moveContact.getGroups(), equalTo(groupsBefore.withAdded(group)));
+                Contacts contacts = app.db().getSimpleContact(moveContact.getId());
+                Groups afterMove=contacts.iterator().next().getGroups();
+                assertThat(afterMove, equalTo(groupsBefore.withAdded(group)));
                 k=true;
                 break;
             }
@@ -40,10 +42,11 @@ public class AddToGroup extends TestBase{
         if (k==false){
             GroupData newgroup=new GroupData().withName("EEE").withFooter("WWWW").withHeader("QQQQ");
             app.group().create(newgroup);
-            Groups groupsAfter =app.db().groups();
             app.contact().addToGroup(moveContact, newgroup);
-            assertThat(moveContact.getGroups(), equalTo(groupsBefore.
-                    withAdded(newgroup.withId(groupsAfter.stream().mapToInt((g)->g.getId()).max().getAsInt()))));
+            Contacts contacts = app.db().getSimpleContact(moveContact.getId());
+            Groups afterMove=contacts.iterator().next().getGroups();
+            assertThat(afterMove, equalTo(groupsBefore.
+                    withAdded(newgroup.withId(afterMove.stream().mapToInt((g)->g.getId()).max().getAsInt()))));
         }
 
     }
