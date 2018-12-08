@@ -19,18 +19,18 @@ public class RemoveFromGroup extends TestBase{
         boolean k=false;
         Groups groupsBefore= moveContact.getGroups();
         for (GroupData group:groups){
-            if (moveContact.getGroups().contains(group)==false){
-                removeFromGroup(moveContact,group);
+            if (moveContact.getGroups().contains(group)==true){
+                app.contact().removeFromGroup(moveContact,group);
                 k=true;
                 assertThat(moveContact.getGroups(), equalTo(groupsBefore.without(group)));
                 break;
             }
         }
         if (k==false){
-            GroupData group=groups.iterator().next();
-            addToGroup(moveContact, group);
-            Groups groupsAfter =app.db().groups();
-            removeFromGroup(moveContact,group);
+            GroupData newgroup=new GroupData().withName("EEE").withFooter("WWWW").withHeader("QQQQ");
+            app.group().create(newgroup);
+            app.contact().addToGroup(moveContact, newgroup);
+            app.contact().removeFromGroup(moveContact,newgroup);
             assertThat(moveContact.getGroups(), equalTo(groupsBefore));
         }
     }

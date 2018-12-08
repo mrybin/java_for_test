@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.fortesting.addressbook.model.ContactData;
 import ru.fortesting.addressbook.model.Contacts;
+import ru.fortesting.addressbook.model.GroupData;
 
 
 import java.util.List;
@@ -112,5 +113,23 @@ public class ContactHelper extends HelperBase{
         return new ContactData()
                 .withId(contact.getId()).withLastname(lastname).withFirstname(firstname).withHomePhone(home)
                 .withMobilePhone(mobile).withWorkPhone(work).withAddress(address).withEmail(email).withEmail2(email2).withEmail3(email3);
+    }
+
+    public void addToGroup(ContactData moveContact, GroupData group) {
+        selectById(moveContact.getId());
+        wd.findElement(By.name("to_group")).click();
+        wd.findElement(By.cssSelector("select[name=\"to_group\"] > option[value=\""+group.getId()+"\"]")).click();
+        wd.findElement(By.name("add")).click();
+        goToHome();
+    }
+
+    public void removeFromGroup(ContactData moveContact, GroupData group) {
+        wd.findElement(By.name("group")).click();
+        wd.findElement(By.xpath("//option[@value='"+group.getId()+"']")).click();
+        selectById(moveContact.getId());
+        wd.findElement(By.name("remove")).click();
+        goToHome();
+        wd.findElement(By.name("group")).click();
+        wd.findElement(By.xpath("//option[@value='']")).click();
     }
 }
